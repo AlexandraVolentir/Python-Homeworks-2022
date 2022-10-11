@@ -30,7 +30,6 @@ def exercise1():
     for i in range(2, len(list_of_numbers)):
         gcd = find_gcd(gcd, list_of_numbers[i])
     print("ex1: The gcd is ", gcd)
-    print("I WAS HERE")
 
 
 def count_vowels(string):
@@ -148,6 +147,9 @@ def exercise7(string):
     d is a digit (a character in the range [0-9]), and +
     means one or more times.
     d+ means match one or more digits.
+    search scans through string looking for the first location where the
+    regular expression pattern produces a match
+    .group() returns a tuple
     """
 
     number = re.search(r'\d+', string).group()
@@ -202,7 +204,7 @@ def exercise10(given_string):
 
 if __name__ == "__main__":
     
-    # exercise1()
+    exercise1()
     exercise2('This is my homework')
     exercise3('Pythonlalalalalalalanguage', 'la')
     exercise4('HelloMyNameIsDataScientist')
