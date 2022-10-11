@@ -1,4 +1,10 @@
-import collections
+"""
+Homework 1 Python Programming 2022
+Date: 11 Oct 2022
+© Volentir Alexandra, 3A5
+
+The requirements can be found at: https://sites.google.com/site/fiipythonprogramming/laboratories/lab-1?authuser=0
+"""
 import re
 
 
@@ -8,21 +14,23 @@ def find_gcd(x, y):
     return x
 
 
-# find the gcd of multiple numbers read from the console
 def exercise1():
-    lst = []
+    """Finds the gcd of multiple numbers read from the console"""
+
+    list_of_numbers = []
     n = int(input("Enter number of elements : "))
     if n < 2:
         n = 2
     for i in range(0, n):
         element = int(input())
-        lst.append(element)
-    num1 = lst[0]
-    num2 = lst[1]
+        list_of_numbers.append(element)
+    num1 = list_of_numbers[0]
+    num2 = list_of_numbers[1]
     gcd = find_gcd(num1, num2)
-    for i in range(2, len(lst)):
-        gcd = find_gcd(gcd, lst[i])
-    print(gcd)
+    for i in range(2, len(list_of_numbers)):
+        gcd = find_gcd(gcd, list_of_numbers[i])
+    print("ex1: The gcd is ", gcd)
+    print("I WAS HERE")
 
 
 def count_vowels(string):
@@ -33,15 +41,16 @@ def count_vowels(string):
     return num_vowels
 
 
-# calculates how many vowels are in a word
 def exercise2(word):
-    print(count_vowels(word))
+    """Prints how many vowels are in a word using count_vowels"""
+
+    print("ex2: the number of vowels is ", count_vowels(word))
 
 
-# write a script that receives two strings
-# n prints the number of occurrences of the first str in the sec
 def exercise3(whole_string, phrase):
-    print(whole_string.count(phrase))
+    """ Prints the number of occurrences of the phrase in a given string using count built-in function"""
+
+    print("ex3: the number of occurrences the phrase is ", whole_string.count(phrase))
 
 
 def change_case(given_set_of_words):
@@ -55,45 +64,79 @@ def change_case(given_set_of_words):
     return ''.join(res)
 
 
-# convert from upper case to lower case with underscore
 def exercise4(phrase):
-    print(change_case(phrase))
+    """Converts from upper case to lower case with underscore using change_case"""
+
+    print("ex4: changed case: ", change_case(phrase))
 
 
-# print the matrix in spiral order
 def exercise5(matrix):
-    ans = []
-    if len(matrix) == 0:
-        return ans
+    """
+    Prints the matrix in spiral order
+    four loops are used and each of the top,
+    right, bottom and left corner of the matrix
+    """
 
-    m = len(matrix)
-    n = len(matrix[0])
-    seen = [[0 for i in range(n)] for j in range(m)]
-    dr = [0, 1, 0, -1]
-    dc = [1, 0, -1, 0]
-    x = 0
-    y = 0
-    di = 0
+    print("ex5:")
 
-    # Iterate from 0 to R * C - 1
-    for i in range(m * n):
-        ans.append(matrix[x][y])
-        seen[x][y] = True
-        cr = x + dr[di]
-        cc = y + dc[di]
+    cur_column = 0
 
-        if 0 <= cr < m and 0 <= cc < n and not (seen[cr][cc]):
-            x = cr
-            y = cc
-        else:
-            di = (di + 1) % 4
-            x += dr[di]
-            y += dc[di]
-    return ans
+    # base case
+    if not matrix or not len(matrix):
+        return
+
+    top = left = 0
+    bottom = len(matrix) - 1
+    right = len(matrix[0]) - 1
+    print("the matrix length is: " + str(len(matrix)))
+    matrix_length = len(matrix[0])
+
+    while True:
+        if left > right:
+            break
+
+        # output the top row
+        for i in range(left, right + 1):
+            print(matrix[top][i], end=' ')
+            cur_column += 1
+
+        top = top + 1
+        if top > bottom:
+            break
+
+        # output the right column
+        for i in range(top, bottom + 1):
+            print(matrix[i][right], end=' ')
+            cur_column += 1
+        right = right - 1
+
+        if left > right:
+            break
+
+        # output the bottom row
+        for i in range(right, left - 1, -1):
+            print(matrix[bottom][i], end=' ')
+            cur_column += 1
+        bottom = bottom - 1
+
+        if top > bottom:
+            break
+
+        # output the left column
+        for i in range(bottom, top - 1, -1):
+            print(matrix[i][left], end=' ')
+            cur_column += 1
+        left = left + 1
+
+    print("\n")
+    print(cur_column, "\n")
 
 
-# Check if the number is a polindrome
 def exercise6():
+    """
+    Checks if the typed number is a palindrome
+    """
+
     n = int(input("Enter number:"))
     temp = n
     rev = 0
@@ -102,34 +145,47 @@ def exercise6():
         rev = rev * 10 + dig
         n = n // 10
     if temp == rev:
-        print("The number is a palindrome!")
+        print("ex6: that's definitely a palindrome")
     else:
-        print("The number isn't a palindrome!")
+        print("ex6: no, the number isn't a palindrome!")
 
 
-# \d is a digit (a character in the range [0-9]), and +
-# means one or more times. Thus, \d+ means match one or more digits.
 def exercise7(string):
+    """
+    Extracts the first number from the text
+    d is a digit (a character in the range [0-9]), and +
+    means one or more times.
+    d+ means match one or more digits.
+    """
+
     number = re.search(r'\d+', string).group()
-    print(number)
+    print("ex7: the first number is ", number)
 
 
-def hamming_weight(n):
-    n = str(n)
-    print(n)
+def hamming_weight(number):
+    """Counts the occurrences of 1 in the str"""
+
+    str_number = str(number)
+    print("The binary of the number is ", str_number)
     one_count = 0
-    for i in n:
-     if i == "1":
-        one_count += 1
-    print(one_count)
+    for i in str_number:
+        if i == "1":
+            one_count += 1
+    return one_count
 
 
-# calc the number of occurrences of 1 in binary
-def exercise8(n):
-    return hamming_weight(str(bin(n)))
+def exercise8(number):
+    """
+    Calculates the number of occurrences of 1 in the binary
+    representation of a number
+    """
+
+    print("ex8: the hamming weight is ", hamming_weight(str(bin(number))))
 
 
 def exercise9(phrase):
+    """Calculates the maximum occurrences of a letter in a phrase"""
+
     all_freq = {}
     for letter in phrase:
         letter = letter.lower()
@@ -141,30 +197,31 @@ def exercise9(phrase):
     maximum_integer = max(all_freq.values())
     for key in all_freq:
         if all_freq[key] == maximum_integer:
-            return key, all_freq[key]
+            print("ex9: the most frequent letter and its occurrence is: ", key, all_freq[key])
 
 
 def exercise10(given_string):
+    """Writes a function that counts how many words are present in a text"""
+
     list_of_words = given_string.split(" ")
     str_list = list(filter(None, list_of_words))
-    print(str_list)
+    print("ex10: the list of extracted words is --> ", str_list)
 
 
 if __name__ == "__main__":
     # exercise1()
-    exercise2('hello agaaaaaain')
-    exercise3('hiiiiiiioioioioioioioi', 'oi')
-    exercise4('HelloMyNameIsJohn')
-    exercise7('hiiiiiii565656hihihi8999')
-    a = [["1", "hei rup", 3, 4],
-         [5, 6, 7, 8],
-         [9, 10, 11, 12],
-         [13, 14, 15, 16]]
+    exercise2('This is my homework')
+    exercise3('Pythonlalalalalalalanguage', 'la')
+    exercise4('HelloMyNameIsDataScientist')
+    a = [["1", "hei_rup", 3, 4, "python"],
+         [5, 6, 7, 8, "scripting"],
+         [9, 10, 11, 12, "hi_python_coding_from_another_world"],
+         [13, 14, 15, 16, "hello_coding2"]]
 
-    # Function call
-    for x in exercise5(a):
-        print(x, end=" ")
-    print()
-    exercise8(2000)
-    print(exercise9("HellooooMyyFrieeeend"))
-    exercise10("hei hei salut")
+    exercise5(a)
+
+    exercise7('computersciencehas1000fieldsand100000000branchessoitshardtodo1thingbutilltry')
+
+    exercise8(2999)
+    exercise9("HelloWoldCodeIsMyLifeNoLikeReally")
+    exercise10("zen in python is a cool guide I would   say")
