@@ -46,7 +46,7 @@ def exercise2(word):
     print("ex2: the number of vowels is ", count_vowels(word))
 
 
-def exercise3(whole_string, phrase):
+def exercise3(phrase, whole_string):
     """ Prints the number of occurrences of the phrase in a given string using count built-in function"""
 
     print("ex3: the number of occurrences the phrase is ", whole_string.count(phrase))
@@ -200,13 +200,14 @@ def exercise10(given_string):
     list_of_words = given_string.split(" ")
     str_list = list(filter(None, list_of_words))
     print("ex10: the list of extracted words is --> ", str_list)
+    print("the number of words is", len(str_list))
 
 
 if __name__ == "__main__":
     
     exercise1()
     exercise2('This is my homework')
-    exercise3('Pythonlalalalalalalanguage', 'la')
+    exercise3('la', 'Pythonlalalalalalalanguage')
     exercise4('HelloMyNameIsDataScientist')
     given_matrix = [["1", "hei_rup", 3, 4, "python"],
                     [5, 6, 7, 8, "scripting"],
@@ -215,6 +216,6 @@ if __name__ == "__main__":
     exercise5(given_matrix)
     exercise6()
     exercise7('computersciencehas1000fieldsand100000000branchessoitshardtodo1thingbutilltry')
-    exercise8(2999)
+    exercise8(10)
     exercise9("HelloWoldCodeIsMyLifeNoLikeReally")
-    exercise10("zen in python is a cool guide I would   say")
+    exercise10("zen in python is a cool guide I would say")
