@@ -79,8 +79,6 @@ def exercise5(matrix):
 
     print("ex5:")
 
-    cur_column = 0
-
     # base case
     if not matrix or not len(matrix):
         return
@@ -88,8 +86,7 @@ def exercise5(matrix):
     top = left = 0
     bottom = len(matrix) - 1
     right = len(matrix[0]) - 1
-    print("the matrix length is: " + str(len(matrix)))
-    matrix_length = len(matrix[0])
+    # print("the matrix length is: " + str(len(matrix)))
 
     while True:
         if left > right:
@@ -98,7 +95,6 @@ def exercise5(matrix):
         # output the top row
         for i in range(left, right + 1):
             print(matrix[top][i], end=' ')
-            cur_column += 1
 
         top = top + 1
         if top > bottom:
@@ -107,7 +103,6 @@ def exercise5(matrix):
         # output the right column
         for i in range(top, bottom + 1):
             print(matrix[i][right], end=' ')
-            cur_column += 1
         right = right - 1
 
         if left > right:
@@ -116,7 +111,6 @@ def exercise5(matrix):
         # output the bottom row
         for i in range(right, left - 1, -1):
             print(matrix[bottom][i], end=' ')
-            cur_column += 1
         bottom = bottom - 1
 
         if top > bottom:
@@ -125,18 +119,16 @@ def exercise5(matrix):
         # output the left column
         for i in range(bottom, top - 1, -1):
             print(matrix[i][left], end=' ')
-            cur_column += 1
         left = left + 1
 
     print("\n")
-    print(cur_column, "\n")
 
 
 def exercise6():
     """
     Checks if the typed number is a palindrome
     """
-
+    print("ex6:\n")
     n = int(input("Enter number:"))
     temp = n
     rev = 0
@@ -145,9 +137,9 @@ def exercise6():
         rev = rev * 10 + dig
         n = n // 10
     if temp == rev:
-        print("ex6: that's definitely a palindrome")
+        print("that's definitely a palindrome")
     else:
-        print("ex6: no, the number isn't a palindrome!")
+        print("no, the number isn't a palindrome!")
 
 
 def exercise7(string):
@@ -186,18 +178,18 @@ def exercise8(number):
 def exercise9(phrase):
     """Calculates the maximum occurrences of a letter in a phrase"""
 
-    all_freq = {}
+    frequencies = {}
     for letter in phrase:
         letter = letter.lower()
-        if letter in all_freq:
-            all_freq[letter] += 1
+        if letter in frequencies:
+            frequencies[letter] += 1
         else:
-            all_freq[letter] = 1
+            frequencies[letter] = 1
 
-    maximum_integer = max(all_freq.values())
-    for key in all_freq:
-        if all_freq[key] == maximum_integer:
-            print("ex9: the most frequent letter and its occurrence is: ", key, all_freq[key])
+    maximum_integer = max(frequencies.values())
+    for key in frequencies:
+        if frequencies[key] == maximum_integer:
+            print("ex9: the most frequent letter and its occurrence is: ", key, frequencies[key])
 
 
 def exercise10(given_string):
@@ -209,19 +201,18 @@ def exercise10(given_string):
 
 
 if __name__ == "__main__":
+    
     # exercise1()
     exercise2('This is my homework')
     exercise3('Pythonlalalalalalalanguage', 'la')
     exercise4('HelloMyNameIsDataScientist')
-    a = [["1", "hei_rup", 3, 4, "python"],
-         [5, 6, 7, 8, "scripting"],
-         [9, 10, 11, 12, "hi_python_coding_from_another_world"],
-         [13, 14, 15, 16, "hello_coding2"]]
-
-    exercise5(a)
-
+    given_matrix = [["1", "hei_rup", 3, 4, "python"],
+                    [5, 6, 7, 8, "scripting"],
+                    [9, 10, 11, 12, "hi_python_coding_from_another_world"],
+                    [13, 14, 15, 16, "hello_coding2"]]
+    exercise5(given_matrix)
+    exercise6()
     exercise7('computersciencehas1000fieldsand100000000branchessoitshardtodo1thingbutilltry')
-
     exercise8(2999)
     exercise9("HelloWoldCodeIsMyLifeNoLikeReally")
     exercise10("zen in python is a cool guide I would   say")
