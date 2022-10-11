@@ -48,7 +48,7 @@ def exercise2(word):
 
 
 def exercise3(whole_string, phrase):
-    """ Prints the number of occurrences of the phrase in a given string"""
+    """ Prints the number of occurrences of the phrase in a given string using count built-in function"""
 
     print("ex3: the number of occurrences the phrase is ", whole_string.count(phrase))
 
@@ -65,21 +65,16 @@ def change_case(given_set_of_words):
 
 
 def exercise4(phrase):
-    """Converts from upper case to lower case with underscore"""
+    """Converts from upper case to lower case with underscore using change_case"""
 
     print("ex4: changed case: ", change_case(phrase))
-
-
-def check_if_nxt_column(cur_column, length):
-    if cur_column == length - 1:
-        return True
-    return False
 
 
 def exercise5(matrix):
     """
     Prints the matrix in spiral order
-    four loops are used and each of the top, right, bottom and left corner of the matrix
+    four loops are used and each of the top,
+    right, bottom and left corner of the matrix
     """
 
     print("ex5:")
@@ -97,31 +92,22 @@ def exercise5(matrix):
     matrix_length = len(matrix[0])
 
     while True:
-
         if left > right:
             break
 
-        if check_if_nxt_column(cur_column, matrix_length):
-            print()
-            cur_column = 0
-
         # output the top row
         for i in range(left, right + 1):
-            # if check_if_nxt_column(cur_column, matrix_length):
-            #     print()
-            #     cur_column = 0
-            #     continue
             print(matrix[top][i], end=' ')
             cur_column += 1
 
         top = top + 1
-
         if top > bottom:
             break
 
         # output the right column
         for i in range(top, bottom + 1):
             print(matrix[i][right], end=' ')
+            cur_column += 1
         right = right - 1
 
         if left > right:
@@ -130,6 +116,7 @@ def exercise5(matrix):
         # output the bottom row
         for i in range(right, left - 1, -1):
             print(matrix[bottom][i], end=' ')
+            cur_column += 1
         bottom = bottom - 1
 
         if top > bottom:
@@ -138,9 +125,11 @@ def exercise5(matrix):
         # output the left column
         for i in range(bottom, top - 1, -1):
             print(matrix[i][left], end=' ')
+            cur_column += 1
         left = left + 1
 
     print("\n")
+    print(cur_column, "\n")
 
 
 def exercise6():
@@ -235,4 +224,4 @@ if __name__ == "__main__":
 
     exercise8(2999)
     exercise9("HelloWoldCodeIsMyLifeNoLikeReally")
-    exercise10("zen in python is a cool guide I would say")
+    exercise10("zen in python is a cool guide I would   say")
