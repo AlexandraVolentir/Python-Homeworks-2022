@@ -7,7 +7,7 @@ The requirements can be found at: https://sites.google.com/site/fiipythonprogram
 """
 
 import collections
-
+import numpy as np
 
 def recursive_fibonacci(n):
     """Recursive fibo"""
@@ -93,36 +93,79 @@ def exercise4(list_of_musical_notes, list_of_integers, position):
     return final_melody
 
 
-def exercise5():
+def exercise5(matrix):
     """Receives as parameter a matrix and will return the matrix
     obtained by replacing all the elements under the main diagonal with 0 (zero)."""
 
+    numpy_matrix = np.array(matrix)
+    num_rows, num_cols = numpy_matrix.shape
+    if num_rows != num_cols:
+        return "this is not a matrix"
+    for i in range(num_rows):
+        for j in range(num_rows):
+            if i > j:
+                matrix[i][j] = 0
+    return matrix
 
-def exercise6(n, *argv):
-    for arg in argv:
-        print(arg)
 
-    pass
+def exercise6(lists, x=2):
+    """Returns a list containing the items that
+    appear exactly x times in the incoming lists"""
+
+    frequency = {}
+    result = []
+    for lst in lists:
+        for item in lst:
+            if item in frequency:
+                frequency[item] += 1
+            else:
+                frequency[item] = 1
+    for item in frequency:
+        if frequency[item] == x:
+            result.append(item)
+    return result
 
 
 def exercise7(string):
     pass
 
 
-def exercise8(number):
-    pass
+def exercise8(strings, x=1, flag=True):
+    result = []
+    for s in strings:
+        for ch in s:
+            if flag is True:
+                if ord(ch) % x == 0 and ch not in result:
+                    result.append(ch)
+            else:
+                if ord(ch) % x != 0 and ch not in result:
+                    result.append(ch)
+    return result
 
 
-def exercise9(phrase):
-    pass
+def exercise9(matrix):
+    result = []
+    for col in range(len(matrix[0])):
+        max_height = matrix[0][col]
+        for line in range(1, len(matrix)):
+            if matrix[line][col] > max_height:
+                max_height = matrix[line][col]
+            else:
+                result.append((line, col))
+    return result
 
 
-def exercise10(given_string):
-    pass
+def exercise10(*lists):
+    """Returns tuples of first/second/third elements"""
+
+    list_of_tuples = list()
+    for i in range(len(lists)):
+        list_of_tuples.append(tuple([item[i] for item in lists]))
+    return list_of_tuples
 
 
 def check_list_duplicates(big_list, given_list):
-    """checks if a list of lists already contains a list"""
+    """Checks if a list of lists already contains a list"""
     for my_list in big_list:
         if collections.Counter(my_list) == collections.Counter(given_list):
             return True
@@ -130,7 +173,7 @@ def check_list_duplicates(big_list, given_list):
 
 
 def exercise11(list_of_tuples):
-    """sorts a list of tuples based on the 3rd character of the 2nd element in a tuple"""
+    """Sorts a list of tuples based on the 3rd character of the 2nd element in a tuple"""
 
     list_of_tuples.sort(key=lambda b: b[1][2])
     return list_of_tuples
@@ -157,6 +200,15 @@ if __name__ == "__main__":
     print("ex2: ", exercise2(list_nr1))
     print("ex3: ", exercise3(list_nr1, list_nr2))
     print("ex4: ", exercise4(["do", "re", "mi", "fa", "sol"], [1, -3, 4, 2], 2))
-    # print("ex6: ", exercise6())
+    print("ex5: ", exercise5([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+    print("ex6: :", exercise6([[1, 2, 3], [2, 3, 4], [4, 5, 6], [4, 1, "test"]]))
+    print("ex8: ", exercise8(["test", "hello", "lab002"]))
+    print("ex8: ", exercise8(["test", "hello", "lab002"], 2, False))
+    field = [[1, 2, 3, 2, 1, 1],
+             [2, 4, 4, 3, 7, 2],
+             [5, 5, 2, 5, 6, 4],
+             [6, 6, 7, 6, 7, 5]]
+    print("ex9: ", exercise9(field))
+    print("ex10: ", exercise10([1, 2, 3], [5, 6, 7], ["a", "b", "c"]))
     print("ex11:", exercise11(list([('abc', 'bcd'), ('abc', 'zza')])))
     print("ex12:", exercise12(list(("flower", "power", "ginger", "home", "pome"))))
