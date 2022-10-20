@@ -10,9 +10,17 @@ import collections
 import numpy as np
 
 
+def is_digit(number):
+    if not isinstance(number, int):
+        return False
+    return True
+
+
 def recursive_fibonacci(n):
     """Recursive fibo"""
 
+    if not is_digit(n):
+        return "The number is not an integer"
     if n == 0 or n == 1:
         return n
     else:
@@ -46,10 +54,16 @@ def is_prime(num):
         return False
 
 
+def check_if_a_list_contains_numbers(ls):
+    return [s for s in ls if is_digit(s)]
+
+
 def exercise2(list_of_numbers):
     """A function that receives a list of numbers and returns a list of the
     prime numbers found in it"""
 
+    if not check_if_a_list_contains_numbers(list_of_numbers):
+        return "List not valid"
     prime_numbers = list()
     for number in list_of_numbers:
         if is_prime(number):
@@ -70,6 +84,9 @@ def exercise3(a, b):
     """Receives as parameters two lists a and b and returns:
     (a intersected with b, a reunited with b, a - b, b - a)"""
 
+    if (not check_if_a_list_contains_numbers(a)) \
+            or not check_if_a_list_contains_numbers(b):
+        return "Invalid lists"
     map_of_lists = dict()
     map_of_lists['a intersected with b'] = intersect_lists(a, b)
     map_of_lists['a reunited with b'] = reunite_lists(a, b)
