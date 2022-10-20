@@ -198,7 +198,6 @@ def exercise7(numbers):
 
 
 def exercise8(words, x=1, divisible=True):
-
     if not is_digit(x):
         return "Invalid x"
 
@@ -259,6 +258,13 @@ def check_list_duplicates(big_list, given_list):
 def exercise11(list_of_tuples):
     """Sorts a list of tuples based on the 3rd character of the 2nd element in a tuple"""
 
+    if not isinstance(list_of_tuples, list):
+        return "Invalid list"
+
+    for tuple_elm in list_of_tuples:
+        if not type(tuple_elm) is tuple or len(tuple_elm) != 2:
+            return "The type of elements is not tuple or invalid"
+
     list_of_tuples.sort(key=lambda b: b[1][2])
     return list_of_tuples
 
@@ -267,7 +273,7 @@ def exercise12(word_list):
     """Finds pairs of words with rhymes"""
 
     if not check_if_a_list_contains_strings(word_list):
-        return "The input should be a list of strings"
+        return "The input should be a list of strings."
 
     list_of_rhymes = list()
     for first_pair in word_list:
