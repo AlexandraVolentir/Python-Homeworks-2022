@@ -16,6 +16,12 @@ def is_digit(number):
     return True
 
 
+def is_string(str1):
+    if not isinstance(str1, str):
+        return False
+    return True
+
+
 def recursive_fibonacci(n):
     """Recursive fibo"""
 
@@ -56,6 +62,10 @@ def is_prime(num):
 
 def check_if_a_list_contains_numbers(ls):
     return [s for s in ls if is_digit(s)]
+
+
+def check_if_a_list_contains_strings(ls):
+    return [s for s in ls if is_string(s)]
 
 
 def exercise2(list_of_numbers):
@@ -101,6 +111,14 @@ def exercise4(list_of_musical_notes, list_of_integers, position):
     The function will return the song composed by going though the musical
     notes beginning with the start position and following the moves given as parameter."""
 
+    if not check_if_a_list_contains_numbers(list_of_integers):
+        return "Invalid list"
+
+    if not check_if_a_list_contains_strings(list_of_musical_notes):
+        return "Invalid list"
+
+    if not is_digit(position): return "Invalid position"
+
     final_melody = list()
     final_melody.append(list_of_musical_notes[position])
     last_position = position
@@ -114,6 +132,10 @@ def exercise4(list_of_musical_notes, list_of_integers, position):
 def exercise5(matrix):
     """Receives as parameter a matrix and will return the matrix
     obtained by replacing all the elements under the main diagonal with 0 (zero)."""
+
+    for elm in matrix:
+        if not check_if_a_list_contains_numbers(elm):
+            return "Invalid matrix. Only numbers allowed"
 
     numpy_matrix = np.array(matrix)
     num_rows, num_cols = numpy_matrix.shape
@@ -129,6 +151,12 @@ def exercise5(matrix):
 def exercise6(lists, x=2):
     """Returns a list containing the items that
     appear exactly x times in the incoming lists"""
+
+    if not isinstance(lists, list):
+        return "Invalid passed argument"
+
+    if not is_digit(x):
+        return "x is not a digit"
 
     frequency = {}
     result = []
@@ -157,6 +185,8 @@ def is_palindrome(number):
 
 
 def exercise7(numbers):
+    if not check_if_a_list_contains_numbers(numbers):
+        return "The list should contain only numbers. Invalid input"
     nr_of_pal = 0
     max_palindrome = 0
     for n in numbers:
@@ -168,6 +198,16 @@ def exercise7(numbers):
 
 
 def exercise8(words, x=1, divisible=True):
+
+    if not is_digit(x):
+        return "Invalid x"
+
+    if not check_if_a_list_contains_strings(words):
+        return "Invalid list of words"
+
+    if not isinstance(divisible, bool):
+        return "Invalid bool"
+
     list_of_characters = []
     for word in words:
         generated_list = []
@@ -184,6 +224,10 @@ def exercise8(words, x=1, divisible=True):
 
 
 def exercise9(matrix):
+    for elm in matrix:
+        if not check_if_a_list_contains_numbers(elm):
+            return "Invalid matrix. Only numbers allowed"
+
     result = []
     for col in range(len(matrix[0])):
         max_height = matrix[0][col]
@@ -221,6 +265,9 @@ def exercise11(list_of_tuples):
 
 def exercise12(word_list):
     """Finds pairs of words with rhymes"""
+
+    if not check_if_a_list_contains_strings(word_list):
+        return "The input should be a list of strings"
 
     list_of_rhymes = list()
     for first_pair in word_list:
