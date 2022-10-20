@@ -69,6 +69,35 @@ def exercise4(phrase):
     print("ex4: changed case: ", change_case(phrase))
 
 
+def get_indexes_in_matrix(N):
+    list_of_indexes = []
+    for i in range(N):
+        for j in range(N):
+            # finds the minimum of four inputs
+            x = min(min(i, j), min(N - 1 - i, N - 1 - j))
+
+            # outputs the upper right half
+            if i <= j:
+                element_number = (N - 2 * x) * (N - 2 * x) - (i - x) - (j - x)
+                list_of_indexes.append((element_number//N, element_number % N))
+                # print((N - 2 * x) * (N - 2 * x) - (i - x) - (j - x), end='')
+
+            # prints the lower left half
+            else:
+                element_number = (N - 2 * x - 2) * (N - 2 * x - 2) + (i - x) + (j - x)
+                list_of_indexes.append((element_number//N, element_number % N))
+                # print((N - 2 * x - 2) * (N - 2 * x - 2) + (i - x) + (j - x), end='')
+
+            # print('\t', end='')
+    return list_of_indexes
+
+
+def exercise5_variant2(matrix):
+    for row, column in get_indexes_in_matrix(len(matrix)):
+        print(row, " ", column)
+        print(matrix[row][column])
+
+
 def exercise5(matrix):
     """
     Prints the matrix in spiral order
@@ -205,16 +234,18 @@ def exercise10(given_string):
 
 if __name__ == "__main__":
     
-    exercise1()
+    # exercise1()
     exercise2('This is my homework')
     exercise3('la', 'Pythonlalalalalalalanguage')
     exercise4('HelloMyNameIsDataScientist')
     given_matrix = [["1", "hei_rup", 3, 4, "python"],
                     [5, 6, 7, 8, "scripting"],
                     [9, 10, 11, 12, "hi_python_coding_from_another_world"],
-                    [13, 14, 15, 16, "hello_coding2"]]
+                    [13, 14, 15, 16, "hello_coding2"],
+                    [18, 19, 20, 21, 22]]
     exercise5(given_matrix)
-    exercise6()
+    exercise5_variant2(given_matrix)
+    # exercise6()
     exercise7('computersciencehas1000fieldsand100000000branchessoitshardtodo1thingbutilltry')
     exercise8(10)
     exercise9("HelloWoldCodeIsMyLifeNoLikeReally")
