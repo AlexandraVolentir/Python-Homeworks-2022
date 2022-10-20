@@ -250,3 +250,4 @@ if __name__ == "__main__":
     exercise8(10)
     exercise9("HelloWoldCodeIsMyLifeNoLikeReally")
     exercise10("zen in python is a cool guide I would say")
+    
