@@ -9,6 +9,7 @@ The requirements can be found at: https://sites.google.com/site/fiipythonprogram
 import collections
 import numpy as np
 
+
 def recursive_fibonacci(n):
     """Recursive fibo"""
 
@@ -126,21 +127,43 @@ def exercise6(lists, x=2):
     return result
 
 
-def exercise7(string):
-    pass
+def is_palindrome(number):
+    x = number
+    k = 0
+    while x != 0:
+        k = k * 10 + x % 10
+        x = x // 10
+    if number == k:
+        return True
+    else:
+        return False
 
 
-def exercise8(strings, x=1, flag=True):
-    result = []
-    for s in strings:
-        for ch in s:
-            if flag is True:
-                if ord(ch) % x == 0 and ch not in result:
-                    result.append(ch)
+def exercise7(numbers):
+    nr_of_pal = 0
+    max_palindrome = 0
+    for n in numbers:
+        if is_palindrome(n) is True:
+            nr_of_pal += 1
+            if n > max_palindrome:
+                max_palindrome = n
+    return nr_of_pal, max_palindrome
+
+
+def exercise8(words, x=1, divisible=True):
+    list_of_characters = []
+    for word in words:
+        generated_list = []
+        for char in word:
+            if divisible:
+                if ord(char) % x == 0:
+                    generated_list.append(char)
             else:
-                if ord(ch) % x != 0 and ch not in result:
-                    result.append(ch)
-    return result
+                if ord(char) % x != 0:
+                    generated_list.append(char)
+        if generated_list:
+            list_of_characters.append(generated_list)
+    return list_of_characters
 
 
 def exercise9(matrix):
@@ -202,7 +225,7 @@ if __name__ == "__main__":
     print("ex4: ", exercise4(["do", "re", "mi", "fa", "sol"], [1, -3, 4, 2], 2))
     print("ex5: ", exercise5([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
     print("ex6: :", exercise6([[1, 2, 3], [2, 3, 4], [4, 5, 6], [4, 1, "test"]]))
-    print("ex8: ", exercise8(["test", "hello", "lab002"]))
+    print("ex7: (nr of palindrome numbers found and the greatest pal nr) = ", exercise7({232, 14555, 12321, 567765}))
     print("ex8: ", exercise8(["test", "hello", "lab002"], 2, False))
     field = [[1, 2, 3, 2, 1, 1],
              [2, 4, 4, 3, 7, 2],
