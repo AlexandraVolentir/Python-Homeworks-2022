@@ -3,7 +3,7 @@ Homework 2 Python Programming 2022
 19th of Oct 2022
 © Volentir Alexandra, 3A5
 
-The requirements can be found at: https://sites.google.com/site/fiipythonprogramming/laboratories/lab-2?authuser=0
+The requirements can be found at: https://sites.google.com/site/fiipythonprogramming/laboratories/lab-2?authuser=0 
 """
 
 import collections
