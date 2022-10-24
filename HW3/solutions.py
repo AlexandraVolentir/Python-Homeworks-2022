@@ -137,11 +137,9 @@ def exercise6(list_of_elm):
     """
     if not check_integer_list(list_of_elm):
         return "Invalid input"
-    # TODO
-    unique_elm = set(list_of_elm)
-    # duplicates =
 
-    return unique_elm
+    unique_elm = set(list_of_elm)
+    return len(unique_elm), len(list_of_elm) - len(unique_elm)
 
 
 def exercise7(*sets):
@@ -193,37 +191,24 @@ def exercise8(mapping):
     return visited_keys
 
 
-def count_positional_args(func):
-    """Counts the positional arguments from the signature of the function"""
-
-    sign = inspect.signature(func)
-    empty = inspect.Parameter.empty
-    counter = 0
-    for parameter in sign.parameters.values():
-        if parameter.default is empty:
-            counter += 1
-    return counter
-
-
-def exercise9(a, b, c, d, x=1, y=2, z=3, w=5):
+def exercise9(*args, **kwargs):
     """
     Calculates the number of positional arguments
     whose values can be found among keyword arguments values
     The locals() method returns a dictionary with
     all the local variables
     :return: integer with nr of matching values
+    A keyword argument is where you provide a name
+    to the variable as you pass it into the function
+    (dictionary that maps each keyword to the value that we pass alongside it)
     """
-    # TODO variable number of positional and keyword arguments
-    saved_args = locals()
-    pos_arg_counter = count_positional_args(exercise9)
     pos_arg = set()
-    var_arg = set()
-    counter = 0
-    for elm in saved_args:
-        if counter < pos_arg_counter:
-            pos_arg.add(saved_args[elm])
-        else:
-            var_arg.add(saved_args[elm])
-        counter += 1
-    return len(pos_arg.intersection(var_arg))
+    keyword_arg = set()
 
+    for arg in args:
+        pos_arg.add(int(arg))
+
+    for arg in kwargs:
+        keyword_arg.add(int(kwargs[arg]))
+
+    return len(get_intersected_sets(pos_arg, keyword_arg))

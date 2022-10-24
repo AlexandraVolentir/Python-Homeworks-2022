@@ -13,14 +13,14 @@ def test_func():
     list_nr1 = [6, 8, 9, 10, 13, 17, 29, 31]
     list_nr2 = [6, 7, 8, 20]
     dict1 = {"book": "Time-Block Planner", "author": "Cal Newport", "year": 2020}
-    dict2 = {"book": "Time-Block Planner", "author": "Cal Newport", "year": 2020}
+    dict2 = {"book": "Time-Block Planner", "author": "Cal Newport", "year": 2120}
     print("ex1: ", exercise1(list_nr1, list_nr2))
     print("ex2: ", exercise2("Ana has apples."))
     print("ex3: ", exercise3(dict1, dict2))
 
     print("ex4: ", exercise4("a", "Hello there", href=" http://python.org ", _class=" my-link ", id=" someid "))
     print("ex5: ", exercise5({("book", "Time", "lock", "er"), ("author", "C", "w", "port")}, dict1))
-    print("ex6: ", exercise6([1, 4, 5, 6, 7, 8, 9, 10, 11, 3, 4, 5, 5, 6, 6, 7, 34]))
+    print("ex6: (unique elements, duplicate elements)", exercise6([1, 4, 5, 6, 7, 8, 9, 10, 11, 3, 4, 5, 5, 6, 6, 7, 34]))
     print("ex7: ")
     operation_dict = exercise7({1, 2}, {2, 3})
     for operation in operation_dict:
