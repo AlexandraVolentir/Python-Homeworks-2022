@@ -93,7 +93,7 @@ def check_input_dict_validator(validation_rules, dictionary):
 def validate_dict(validation_rules, dictionary):
     """
     Checks if the dictionary satisfies the given rules
-    :param validation_rules: a set of tuples
+    :param validation_rules: a set of tuples with 4 values each (key, prefix, middle, suffix)
     :param dictionary: the dictionary
     :return: True if matches all the rules, False otherwise
     """
@@ -148,7 +148,7 @@ def exercise7(*sets):
     """
     Calculates intersection, reunion and difference for all given sets 2 by 2
     :param sets: a variable number of sets
-    :return: a dictionary with |, &, - from all sets 2 by 2
+    :return: a dictionary containing the |, &, - from all sets 2 by 2
     """
 
     for singular_set in sets:
@@ -173,9 +173,8 @@ def exercise7(*sets):
 
 def exercise8(mapping):
     """
-    Iterate through a map where the
-    value of the current key is the key for the next value
-    until we find a loop
+    Iterate through a map where the value of the current key
+    is the key for the next value until we find a loop
     :param mapping: a dictionary
     :return: a list of objects obtained
     """
