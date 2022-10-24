@@ -156,14 +156,15 @@ def exercise7(*sets):
     list_of_sets = list()
     for singular_set in sets:
         list_of_sets.append(singular_set)
-    verified_sets = list()
-    for set_elm1 in list_of_sets:
-        for set_elm2 in list_of_sets:
-            if set_elm1 != set_elm2:
-                result[str(set_elm1) + ' | ' + str(set_elm2)] = get_reunited_sets(set_elm1, set_elm2)
-                result[str(set_elm1) + ' & ' + str(set_elm2)] = get_intersected_sets(set_elm1, set_elm2)
-                result[str(set_elm1) + ' - ' + str(set_elm2)] = set_elm1 - set_elm2
-                result[str(set_elm2) + ' - ' + str(set_elm1)] = set_elm2 - set_elm1
+    for i in range(len(list_of_sets)):
+        for j in range(i + 1, len(list_of_sets)):
+            if list_of_sets[i] != list_of_sets[j]:
+                result[str(list_of_sets[i]) + ' | ' + str(list_of_sets[j])] = \
+                    get_reunited_sets(list_of_sets[i], list_of_sets[j])
+                result[str(list_of_sets[i]) + ' & ' + str(list_of_sets[j])] = \
+                    get_intersected_sets(list_of_sets[i], list_of_sets[j])
+                result[str(list_of_sets[i]) + ' - ' + str(list_of_sets[j])] = list_of_sets[i] - list_of_sets[j]
+                result[str(list_of_sets[j]) + ' - ' + str(list_of_sets[i])] = list_of_sets[j] - list_of_sets[i]
     return result
 
 
