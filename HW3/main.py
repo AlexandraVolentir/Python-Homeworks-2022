@@ -20,13 +20,13 @@ def test_func():
 
     print("ex4: ", exercise4("a", "Hello there", href=" http://python.org ", _class=" my-link ", id=" someid "))
     print("ex5: ", exercise5({("book", "Time", "lock", "er"), ("author", "C", "w", "port")}, dict1))
-    print("ex6: (unique elements, duplicate elements)", exercise6([1, 4, 5, 6, 7, 8, 9, 10, 11, 3, 4, 5, 5, 6, 6, 7, 34]))
+    print("ex6: (unique elements, duplicate elements) = ", exercise6([1, 4, 5, 6, 7, 8, 9, 10, 11, 3, 4, 5, 5, 6, 6, 7, 34]))
     print("ex7: ")
     operation_dict = exercise7({1, 2}, {2, 3})
     for operation in operation_dict:
         print(operation, ": ", operation_dict[operation])
     print("ex8: ", exercise8({'start': 'a', 'b': 'a', 'a': '6', '6': 'z', 'x': '2', 'z': '2', '2': '2', 'y': 'start'}))
-    print("ex9: number of common values in pos and var arguments is ---> ", exercise9(1, 2, 3, 4, x=1, y=2, z=3, w=5))
+    print("ex9: common values in pos and var args ---> ", exercise9(1, 2, 3, 4, x=1, y=2, z=3, w=5))
 
 
 if __name__ == "__main__":

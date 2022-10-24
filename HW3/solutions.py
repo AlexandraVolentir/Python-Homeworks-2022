@@ -1,5 +1,3 @@
-import inspect
-
 from input_verification_functions import *
 from collections import Counter
 
@@ -198,9 +196,6 @@ def exercise9(*args, **kwargs):
     The locals() method returns a dictionary with
     all the local variables
     :return: integer with nr of matching values
-    A keyword argument is where you provide a name
-    to the variable as you pass it into the function
-    (dictionary that maps each keyword to the value that we pass alongside it)
     """
     pos_arg = set()
     keyword_arg = set()
