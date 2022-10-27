@@ -52,30 +52,56 @@ def exercise2(string):
     return res
 
 
-def exercise3(d1, d2):
+def are_equal(depth1, depth2, depth) -> (bool, list):
     """
-    Compares two dictionaries without using "=="
-    DeepDiff recursively compares the dictionaries
-    :param d1: first dictionary
-    :param d2: second dictionary
-    :return: the result of the recursive comparison
+    receives 2 dictionaries or whatever else
+    :param depth1:
+    :param depth2:
+    :return: True if equal, False otherwise
     """
 
-    if not is_dict(d1) or not is_dict(d2):
-        return "Invalid input"
-    from deepdiff import DeepDiff
-    return len(DeepDiff(d1, d2)) == 0
+    if type(depth1) == type(depth2):
+        if type(depth1) is dict:
+            equal = True
+            diff = []
+            for lab1, lab2 in zip(sorted(depth1.keys()), sorted(depth2.keys())):  # for  labels
+                if lab1 != lab2:
+                    equal = False
+                    diff.append((lab1, lab2, "depth = " + str(depth), "the keys are not equal"))
+                    continue
+                check_equal = are_equal(depth1[lab1], depth2[lab1], depth + 1)
+                if not check_equal[0]:
+                    equal = False
+                    diff += check_equal[1]
+            else:
+                return equal, diff
+        if depth1 != depth2:
+            return False, [(depth1, depth2, "depth = " + str(depth), "are not equal")]
+        else:
+            return True, []
+    else:
+        return False, [(depth1, depth2, "depth = " + str(depth), "different type")]
 
 
-def build_xml_element(tag, content, href, _class, id):
-    # TODO how to elegantly make this
-    # key_values_concatenated = ','.join(key_value)
-    # print(key_values_concatenated)
-    pass
+def exercise3(d_1: dict, d_2: dict) -> list:
+    """
+    Compares two dictionaries recursively
+    """
+    return are_equal(d_1, d_2, 0)[1]
 
 
-def exercise4(tag, content, href, _class, id):
-    return build_xml_element(tag, content, href, _class, id)
+def build_xml_element(tag: str, content: str, **components) -> str:
+    """'
+    Exercise4
+    Build and return a string that represents the corresponding XML element
+    """
+
+    return "<{} {} >{}</{}>".format(
+        tag,
+        ', '.join(["{}={}".format(key, value) for key, value in components.items()]),
+        content,
+        tag
+    )
 
 
 def check_input_dict_validator(validation_rules, dictionary):
@@ -95,6 +121,7 @@ def validate_dict(validation_rules, dictionary):
     :param dictionary: the dictionary
     :return: True if matches all the rules, False otherwise
     """
+
     if not check_input_dict_validator(validation_rules, dictionary):
         return "Invalid input"
 
@@ -114,16 +141,6 @@ def exercise5(validation_rules, dictionary):
     return validate_dict(validation_rules, dictionary)
 
 
-def get_unique_elements(list_given):
-    visited = set()
-    unique = []
-    for elm in list_given:
-        if elm not in visited:
-            unique.append(elm)
-            visited.add(elm)
-    return unique
-
-
 def exercise6(list_of_elm):
     """
     Calculates unique and duplicates in a list
@@ -133,6 +150,7 @@ def exercise6(list_of_elm):
     :return: a tuple (a,b), where a represents the nr of unique elements in the list
     and b the duplicate elm
     """
+
     if not check_integer_list(list_of_elm):
         return "Invalid input"
 
@@ -151,7 +169,6 @@ def exercise7(*sets):
         if not is_set(singular_set):
             return "Invalid input"
 
-    # TODO verify if there are any duplicates
     result = dict()
     list_of_sets = list()
     for singular_set in sets:
@@ -194,10 +211,9 @@ def exercise9(*args, **kwargs):
     """
     Calculates the number of positional arguments
     whose values can be found among keyword arguments values
-    The locals() method returns a dictionary with
-    all the local variables
     :return: integer with nr of matching values
     """
+
     pos_arg = set()
     keyword_arg = set()
 
