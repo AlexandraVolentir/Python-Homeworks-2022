@@ -52,12 +52,9 @@ def exercise2(string):
     return res
 
 
-def are_equal(depth1, depth2, depth) -> (bool, list):
+def check_equal_dict(depth1, depth2, depth) -> (bool, list):
     """
-    receives 2 dictionaries or whatever else
-    :param depth1:
-    :param depth2:
-    :return: True if equal, False otherwise
+    Checks recursively if dictionaries are equal
     """
 
     if type(depth1) == type(depth2):
@@ -69,7 +66,7 @@ def are_equal(depth1, depth2, depth) -> (bool, list):
                     equal = False
                     diff.append((lab1, lab2, "depth = " + str(depth), "the keys are not equal"))
                     continue
-                check_equal = are_equal(depth1[lab1], depth2[lab1], depth + 1)
+                check_equal = check_equal_dict(depth1[lab1], depth2[lab1], depth + 1)
                 if not check_equal[0]:
                     equal = False
                     diff += check_equal[1]
@@ -80,14 +77,14 @@ def are_equal(depth1, depth2, depth) -> (bool, list):
         else:
             return True, []
     else:
-        return False, [(depth1, depth2, "depth = " + str(depth), "different type")]
+        return False, [(depth1, depth2, "depth = " + str(depth), "encountered different type")]
 
 
 def exercise3(d_1: dict, d_2: dict) -> list:
     """
     Compares two dictionaries recursively
     """
-    return are_equal(d_1, d_2, 0)[1]
+    return check_equal_dict(d_1, d_2, 0)[1]
 
 
 def build_xml_element(tag: str, content: str, **components) -> str:
