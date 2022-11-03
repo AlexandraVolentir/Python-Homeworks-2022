@@ -10,10 +10,6 @@ from solutions import *
 
 
 def test_func():
-    pass
-
-
-if __name__ == "__main__":
     directory = "sample_dir"
     print("ex1: ", get_list_of_sorted_extensions(directory))
     print("ex2: ", write_absolute_paths(directory, "output/ex2.txt"))
@@ -23,3 +19,7 @@ if __name__ == "__main__":
     print("ex6: ")
     print("ex7: ", get_info("sample_dir/file.txt"))
     print("ex8: ", get_all_absolute_paths(directory))
+
+
+if __name__ == "__main__":
+    test_func()

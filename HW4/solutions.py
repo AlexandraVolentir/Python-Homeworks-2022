@@ -119,7 +119,7 @@ def file_search_ex6(targ, to_search, callback):
 
 def get_info(file_path):
     """Ex7: Returns a specific dictionary
-    
+
     characterising the path given as parameter"""
     return {
         'full_path': os.path.abspath(file_path),
