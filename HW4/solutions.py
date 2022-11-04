@@ -18,7 +18,7 @@ def is_string(str1):
     return True
 
 
-def get_list_of_sorted_extensions(directory):
+def get_extensions(directory):
     """
     Ex1: Returns a list of unique extensions sorted
     increasingly (alphabetically) from the directory given
@@ -32,7 +32,7 @@ def get_list_of_sorted_extensions(directory):
          if ext != '']) if os.path.exists(directory) else not_found_err
 
 
-def write_absolute_paths(dir, name):
+def write_abs_paths(dir, name):
     """Ex2: Implementing a function so that in the file from the file path,
     the absolute path of each file inside the directory from
     the folder path, starting with the letter A, is written
@@ -50,17 +50,17 @@ def write_absolute_paths(dir, name):
     return "Check up the output/ex2.txt file"
 
 
-def get_last_20_chars(name):
+def get_last_chars(name, size=20):
     """Get the last 20 characters from the contents of a file"""
 
     with open(name, 'r') as file:
         filesize = os.path.getsize(name)
         if filesize > 20:
-            file.seek(filesize - 20)
+            file.seek(filesize - size)
         return file.read()
 
 
-def get_file_extension_freq(dir):
+def get_ext_freq(dir):
     """Returns the file extension frequency"""
 
     freq = {}
@@ -77,12 +77,12 @@ def get_by_path(path):
     and get_last_20_chars"""
 
     if is_file(path):
-        return get_last_20_chars(path)
+        return get_last_chars(path)
     if is_directory(path):
-        return get_file_extension_freq(path)
+        return get_ext_freq(path)
 
 
-def get_list_of_sorted_extensions_cmd(dir):
+def get_sorted_ext(dir):
     """Ex4: Returns a list of unique extensions
     from the dir given argument """
 
@@ -94,7 +94,7 @@ def get_list_of_sorted_extensions_cmd(dir):
          if ext != '']) if os.path.exists(dir) else not_found_err
 
 
-def file_search_ex5(targ, look_up):
+def file_lookup_ex5(targ, look_up):
     """Ex5: Returns a list of files that contain to_search"""
 
     if not is_file(targ) and not is_directory(targ) and not is_string(look_up):
@@ -124,7 +124,7 @@ def if_contains_elm(name, look_up):
         return look_up in file.read()
 
 
-def file_search_ex6(targ, to_search, callback):
+def file_lookup_ex6(targ, to_search, callback):
     """Ex6: similar to ex5, but receives a callback func"""
 
     if not is_file(targ) and not is_directory(targ) and not is_string(to_search):
@@ -149,10 +149,10 @@ def file_search_ex6(targ, to_search, callback):
         callback(e)
 
 
-def get_info(path):
+def get_data(path):
     """Ex7: Returns a specific dictionary
-
     characterising the path given as parameter"""
+
     return {
         'full_path': os.path.abspath(path),
         'file_size': os.path.getsize(path),
@@ -162,7 +162,7 @@ def get_info(path):
     } if os.path.exists(path) else not_found_err
 
 
-def get_all_absolute_paths(path):
+def get_all_abs_paths(path):
     """Ex8: Returns a list of all the absolute paths of the files
     that are located at the root of the dir_path"""
 
