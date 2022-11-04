@@ -1,6 +1,21 @@
 import os
 
-dict_not_found_err = "The dictionary was not found"
+not_found_err = "The dictionary was not found"
+path_err = "Path specified invalid"
+
+
+def is_file(path):
+    return os.path.isfile(path)
+
+
+def is_directory(path):
+    return os.path.isdir(path)
+
+
+def is_string(str1):
+    if not isinstance(str1, str):
+        return False
+    return True
 
 
 def get_list_of_sorted_extensions(directory):
@@ -9,9 +24,12 @@ def get_list_of_sorted_extensions(directory):
     increasingly (alphabetically) from the directory given
     as parameter
     """
+    if not is_directory(directory):
+        return path_err
+
     return sorted(
         [ext for ext in {os.path.splitext(file)[1][1:] for file in os.listdir(os.path.abspath(directory))}
-         if ext != '']) if os.path.exists(directory) else dict_not_found_err
+         if ext != '']) if os.path.exists(directory) else not_found_err
 
 
 def write_absolute_paths(directory, filename):
@@ -19,12 +37,17 @@ def write_absolute_paths(directory, filename):
     the absolute path of each file inside the directory from
     the folder path, starting with the letter A, is written
     on one line."""
+
+    if not is_directory(directory) or not is_file(filename):
+        return path_err
+
     with open(filename, 'w') as file:
         for (root, directories, files) in os.walk(directory):
             for file_name in files:
                 if file_name[0] == 'A':
                     absolute_path = os.path.join(os.path.abspath(root), file_name)
                     file.write(absolute_path + '\n')
+    return "Check up the output/ex2.txt file"
 
 
 def get_last_20_chars(filename):
@@ -63,29 +86,35 @@ def get_list_of_sorted_extensions_cmd(directory):
     """Ex4: Returns a list of unique extensions
     from the dir given argument """
 
+    if not is_directory(directory):
+        return path_err
+
     return sorted(
         [extension for extension in {os.path.splitext(file)[1][1:] for file in os.listdir(os.path.abspath(directory))}
-         if extension != '']) if os.path.exists(directory) else dict_not_found_err
+         if extension != '']) if os.path.exists(directory) else not_found_err
 
 
-def file_search_ex5(target, to_search):
+def file_search_ex5(targ, to_search):
     """Ex5: Returns a list of files that contain to_search"""
 
-    try:
-        if os.path.isfile(target):
-            if check_if_file_contains_to_search(target, to_search):
-                return [target]
+    if not is_file(targ) and not is_directory(targ) and not is_string(to_search):
+        return "Wrong parameters"
 
-        elif os.path.isdir(target):
+    try:
+        if os.path.isfile(targ):
+            if check_if_file_contains_to_search(targ, to_search):
+                return [targ]
+
+        elif os.path.isdir(targ):
             files_with_to_search = []
-            for (root, directories, files) in os.walk(target):
+            for (root, directories, files) in os.walk(targ):
                 for file_name in files:
                     file_path = os.path.join(root, file_name)
                     if check_if_file_contains_to_search(file_path, to_search):
                         files_with_to_search.append(file_path)
             return files_with_to_search
         else:
-            raise ValueError(target + ' is not a file/directory')
+            raise ValueError(targ + ' is not a file/directory')
     except ValueError as e:
         print(e)
 
@@ -97,6 +126,9 @@ def check_if_file_contains_to_search(filename, to_search):
 
 def file_search_ex6(targ, to_search, callback):
     """Ex6: similar to ex5, but receives a callback func"""
+
+    if not is_file(targ) and not is_directory(targ) and not is_string(to_search):
+        return "Wrong parameters"
 
     try:
         if os.path.isfile(targ):
@@ -127,13 +159,16 @@ def get_info(file_path):
         'file_extension': os.path.splitext(file_path)[1][1:],
         'can_read': os.access(file_path, os.R_OK),
         'can_write': os.access(file_path, os.W_OK)
-    } if os.path.exists(file_path) else 'Sorry, file not found:('
+    } if os.path.exists(file_path) else not_found_err
 
 
 def get_all_absolute_paths(dir_path):
     """Ex8: Returns a list of all the absolute paths of the files
     that are located at the root of the dir_path"""
 
+    if not is_directory(dir_path):
+        return path_err
+
     return [os.path.join(os.path.abspath(dir_path), file) for file in
             os.listdir(os.path.abspath(dir_path)) if os.path.isfile(os.path.join(dir_path, file))] \
-        if os.path.isdir(dir_path) else dict_not_found_err
+        if os.path.isdir(dir_path) else not_found_err

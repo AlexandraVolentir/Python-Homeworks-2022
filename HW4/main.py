@@ -16,7 +16,6 @@ def test_func():
     print("ex3: ", get_by_path("sample_dir/data.csv"))
     print("ex4: ", get_list_of_sorted_extensions(directory))
     print("ex5: ", file_search_ex5("sample_dir/file.txt", "swing"))
-    print("ex6: ")
     print("ex7: ", get_info("sample_dir/file.txt"))
     print("ex8: ", get_all_absolute_paths(directory))
 
