@@ -76,9 +76,9 @@ def get_by_path(path):
     """Ex3: Implements the functions get_file_extension_frequency
     and get_last_20_chars"""
 
-    if os.path.isfile(path):
+    if is_file(path):
         return get_last_20_chars(path)
-    if os.path.isdir(path):
+    if is_directory(path):
         return get_file_extension_freq(path)
 
 
@@ -101,11 +101,11 @@ def file_search_ex5(targ, look_up):
         return "Wrong parameters"
 
     try:
-        if os.path.isfile(targ):
+        if is_file(targ):
             if if_contains_elm(targ, look_up):
                 return [targ]
 
-        elif os.path.isdir(targ):
+        elif is_directory(targ):
             files_with_look_up = []
             for (root, directories, files) in os.walk(targ):
                 for name_file in files:
@@ -131,11 +131,11 @@ def file_search_ex6(targ, to_search, callback):
         return "Wrong parameters"
 
     try:
-        if os.path.isfile(targ):
+        if is_file(targ):
             if if_contains_elm(targ, to_search):
                 return [targ]
 
-        if os.path.isdir(targ):
+        if is_directory(targ):
             files_containing_elm = []
             for (root, directories, files) in os.walk(targ):
                 for file_name in files:
@@ -170,5 +170,5 @@ def get_all_absolute_paths(path):
         return path_err
 
     return [os.path.join(os.path.abspath(path), file) for file in
-            os.listdir(os.path.abspath(path)) if os.path.isfile(os.path.join(path, file))] \
-        if os.path.isdir(path) else not_found_err
+            os.listdir(os.path.abspath(path)) if is_file(os.path.join(path, file))] \
+        if is_directory(path) else not_found_err
