@@ -17,7 +17,7 @@ def test_func():
     print("ex4: ", get_extensions(directory))
     print("ex5: ", file_lookup_ex5("sample_dir/file.txt", "swing"))
     print("ex7: ", get_data("sample_dir/file.txt"))
-    print("ex8: ", get_all_abs_paths(directory))
+    print("ex8: ", get_all_absolute_paths(directory))
 
 
 if __name__ == "__main__":

@@ -152,7 +152,7 @@ def file_lookup_ex6(targ, to_search, callback):
 def get_data(path):
     """Ex7: Returns a specific dictionary
     characterising the path given as parameter"""
-
+    
     return {
         'full_path': os.path.abspath(path),
         'file_size': os.path.getsize(path),
@@ -162,7 +162,7 @@ def get_data(path):
     } if os.path.exists(path) else not_found_err
 
 
-def get_all_abs_paths(path):
+def get_all_absolute_paths(path):
     """Ex8: Returns a list of all the absolute paths of the files
     that are located at the root of the dir_path"""
 
