@@ -1,5 +1,12 @@
-import utils
+"""
+Homework 4 Python Programming 2022
+9th of Nov 2022
+:copyright: Volentir Alexandra, 3A5
 
+The requirements can be found at: https://sites.google.com/site/fiipythonprogramming/laboratories/lab-5?authuser=0
+"""
+
+import utils
 import app
 
 
@@ -37,8 +44,8 @@ def main():
             offset=2,
         )
     )
-    # augmented_multiply_by_two = utils.ex8(utils.multiply_by_two)
-    # print(augmented_multiply_by_two(10))
+    augmented_multiply_by_two = utils.print_arguments(utils.multiply_by_two)
+    print(augmented_multiply_by_two(7))
     print(utils.ex9([(5, 2), (19, 1), (30, 6), (2, 2)]))
 
 

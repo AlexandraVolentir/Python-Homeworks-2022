@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 import sympy
 from typing import Callable
 
@@ -105,49 +104,81 @@ def ex7(**kwargs) -> list[int]:
     return out
 
 
-def ex8_wrapper(func: Callable) -> Callable:
-    def print_args(*args, **kwargs):
-        print(f"args:", args, kwargs)
+# def ex8_wrapper(func: Callable) -> Callable:
+#     def print_args(*args, **kwargs):
+#         print(f"args:", args, kwargs)
+#         return func(*args, **kwargs)
+#     return print_args
+#
+#
+# @ex8_wrapper
+# def multiply_by_two(x: int):
+#     return x * 2
+#
+#
+# @ex8_wrapper
+# def add_numbers(a, b):
+#     return a + b
+#
+#
+# def multiply_output(func: Callable) -> Callable:
+#     def multiply(*args, **kwargs):
+#         return func(*args, **kwargs) * 2
+#     return multiply
+#
+#
+# @multiply_output
+# def multiply_by_three(x: int) -> int:
+#     return x * 3
+#
+#
+# def augment_function(func: Callable) -> Callable:
+#     def augment(decorators: list[Callable[[Callable], Callable]], *args, **kwargs):
+#         out = func(*args, **kwargs)
+#         for dec in decorators:
+#             out = dec(func)(*args, **kwargs)
+#         return out
+#
+#     return augment
+#
+#
+# @augment_function
+# def other_add_numbers(a: int, b: int) -> int:
+#     return a + b
+
+
+def multiply_by_two(a):
+    return a * 2
+
+
+def multiply_by_three(a):
+    return a * 3
+
+
+def add_numbers(x, y):
+    return x + y
+
+
+def print_arguments(func):
+    def introduced(*args, **kwargs):
+        print(*args, **kwargs)
         return func(*args, **kwargs)
-
-    return print_args
-
-
-@ex8_wrapper
-def multiply_by_two(x: int):
-    return x * 2
+    return introduced
 
 
-@ex8_wrapper
-def add_numbers(a, b):
-    return a + b
+def multiply_output(function):
+    def introduced_func(*args, **kwargs):
+        return 2 * function(*args, **kwargs)
+    return introduced_func
 
 
-def multiply_output(func: Callable) -> Callable:
-    def multiply(*args, **kwargs):
-        return func(*args, **kwargs) * 2
-
-    return multiply
-
-
-@multiply_output
-def multiply_by_three(x: int) -> int:
-    return x * 3
-
-
-def augment_function(func: Callable) -> Callable:
-    def augment(decorators: list[Callable[[Callable], Callable]], *args, **kwargs):
-        out = func(*args, **kwargs)
-        for dec in decorators:
-            out = dec(func)(*args, **kwargs)
-        return out
-
-    return augment
-
-
-@augment_function
-def other_add_numbers(a: int, b: int) -> int:
-    return a + b
+def argument_function(func, dec):
+    def introduced(*args, **kwargs):
+        res = func
+        for j in dec:
+            res = j(res)
+        return res(*args, **kwargs)
+    return introduced
 
 
 def ex9(pairs: list[tuple[int, int]]) -> list[dict[str, int | float]]:
