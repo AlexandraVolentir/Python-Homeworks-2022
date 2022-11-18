@@ -54,9 +54,8 @@ def exercise4(path, attr):
     res_list = list()
     f = open(path, "r")
     parsed_data = f.read()
-    lookup = r"(<(\w+)" + r"".join(
-        [" {key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
-        ) + r">[^</\2>]*</\2>)"
+    lookup = r"(<(\w+)" + r"".join([" {key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
+         ) + r">[^</\2>]*</\2>)"
     for match in re.findall(lookup, parsed_data):
         res_list += match[0]
     return res_list
@@ -70,22 +69,20 @@ def exercise5(path, attr):
     res = list()
     f = open(path, "r")
     data = f.read()
-    lookup = r"(<(\w+) [^>]*(" + r"|".join(
-        ["{key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
-    ) + r")[^>]*>[^(<\2>)]*</\2>)"
+    lookup = r"(<(\w+) [^>]*(" + r"|".join(["{key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
+        ) + r")[^>]*>[^(<\2>)]*</\2>)"
     for match in re.findall(lookup, data):
         res += match[0]
     return res
 
 
-def censor(text):
-    text = text.group(0)
-    text_len = len(text)
-    div = 2
+def censor(content):
+    content = content.group(0)
+    text_len = len(content)
     res = ""
     for j in range(text_len):
-        if j % div == 0:
-            res += text[j]
+        if j % 2 == 0:
+            res += content[j]
         else:
             res += "#"
     return res
@@ -96,7 +93,7 @@ def exercise6(string):
     Write a function that, for a text given as a parameter, censures words that begin and end with vowels.
     censor_funcship means replacing characters from odd positions with *.
     """
-    return re.sub(r"(a|e|i|o|u)\w+(a|e|i|o|u)", censor_func, string)
+    return re.sub(r"(a|e|i|o|u)\w+(a|e|i|o|u)", censor, string)
 
 
 def exercise8(path, reg):
@@ -115,6 +112,6 @@ def exercise8(path, reg):
                 elif re.match(reg, f_path) or re.match(reg, open(f_path, "r").read()):
                     to_append = ">>" + f_path
                     list_of_matches.append(to_append)
-    except Exception as e:
-        SystemError(e)
+    except Exception as ex:
+        SystemError(ex)
     return list_of_matches
