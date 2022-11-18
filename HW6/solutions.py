@@ -52,13 +52,13 @@ def exercise4(path, attr):
     whose attributes are class="url" si name="url-form" si data-id="item".
     """
     res_list = list()
-    with open(path, "r") as f:
-        parsed_data = f.read()
-        lookup = r"(<(\w+)" + r"".join(
-            [" {key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
-            ) + r">[^</\2>]*</\2>)"
-        for match in re.findall(lookup, parsed_data):
-            res_list += match[0]
+    f = open(path, "r")
+    parsed_data = f.read()
+    lookup = r"(<(\w+)" + r"".join(
+        [" {key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
+        ) + r">[^</\2>]*</\2>)"
+    for match in re.findall(lookup, parsed_data):
+        res_list += match[0]
     return res_list
 
 
@@ -68,11 +68,11 @@ def exercise5(path, attr):
     at least one attribute that corresponds to a key-value pair in the dictionary.
     """
     res = list()
-    with open(path, "r") as f:
-        data = f.read()
-        lookup = r"(<(\w+) [^>]*(" + r"|".join(
-            ["{key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
-        ) + r")[^>]*>[^(<\2>)]*</\2>)"
-        for match in re.findall(lookup, data):
-            res += match[0]
+    f = open(path, "r")
+    data = f.read()
+    lookup = r"(<(\w+) [^>]*(" + r"|".join(
+        ["{key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
+    ) + r")[^>]*>[^(<\2>)]*</\2>)"
+    for match in re.findall(lookup, data):
+        res += match[0]
     return res
