@@ -8,3 +8,4 @@ if __name__ == "__main__":
     print(exercise3("keep it super simple", [r"\w+", r"simple"]))
     print(exercise4("file.xml", {"class": "url", "name": "url-form", "data-id": "item"}))
     print(exercise5("file.xml", {"class": "url", "name": "url-form", "data-id": "item"}))
+    print(exercise8(".", ".*file.*"))

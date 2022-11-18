@@ -76,3 +76,45 @@ def exercise5(path, attr):
     for match in re.findall(lookup, data):
         res += match[0]
     return res
+
+
+def censor(text):
+    text = text.group(0)
+    text_len = len(text)
+    div = 2
+    res = ""
+    for j in range(text_len):
+        if j % div == 0:
+            res += text[j]
+        else:
+            res += "#"
+    return res
+
+
+def exercise6(string):
+    """
+    Write a function that, for a text given as a parameter, censures words that begin and end with vowels.
+    censor_funcship means replacing characters from odd positions with *.
+    """
+    return re.sub(r"(a|e|i|o|u)\w+(a|e|i|o|u)", censor_func, string)
+
+
+def exercise8(path, reg):
+    """8.Write a function that recursively scrolls a directory and displays those
+    files whose name matches a regular expression
+    given as a parameter or contains a string that matches the same expression.
+    Files that satisfy both conditions will be prefixed with ">>"""
+    list_of_matches = list()
+    try:
+        for r, d, f in os.walk(path):
+            for x in f:
+                f_path = os.path.join(r, x)
+                if re.match(reg, f_path) and re.match(reg, open(f_path, "r").read()):
+                    to_append = ">>" + f_path
+                    list_of_matches.append(to_append)
+                elif re.match(reg, f_path) or re.match(reg, open(f_path, "r").read()):
+                    to_append = ">>" + f_path
+                    list_of_matches.append(to_append)
+    except Exception as e:
+        SystemError(e)
+    return list_of_matches
