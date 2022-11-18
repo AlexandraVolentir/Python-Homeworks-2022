@@ -76,17 +76,3 @@ def exercise5(path, attr):
         for match in re.findall(lookup, data):
             res += match[0]
     return res
-
-
-def censor_func(text):
-    text = text.group(0)
-    return "".join([text[j] if j % 2 == 0 else "*" for j in range(len(text))])
-
-
-def exercise6(string):
-    """
-    Write a function that, for a text given as a parameter, censures words that begin and end with vowels.
-    censor_funcship means replacing characters from odd positions with *.
-    """
-    return re.sub(r"(a|e|i|o|u)\w+(a|e|i|o|u)", censor_func, string)
-
