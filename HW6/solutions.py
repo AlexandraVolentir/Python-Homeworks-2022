@@ -7,21 +7,6 @@ Volentir Alexandra, 3A5
 import re
 import os
 
-days_per_m = [     # days per month
-        r"(0[1-9]|[1-2]\d|3[0-1])",
-        r"(0[1-9]|1\d|2[0-8])",
-        r"(0[1-9]|[1-2]\d|3[0-1])",
-        r"(0[1-9]|[1-2]\d|30)",
-        r"(0[1-9]|[1-2]\d|3[0-1])",
-        r"(0[1-9]|[1-2]\d|30)",
-        r"(0[1-9]|[1-2]\d|3[0-1])",
-        r"(0[1-9]|[1-2]\d|3[0-1])",
-        r"(0[1-9]|[1-2]\d|30)",
-        r"(0[1-9]|[1-2]\d|3[0-1])",
-        r"(0[1-9]|[1-2]\d|30)",
-        r"(0[1-9]|[1-2]\d|3[0-1])"
-    ]
-
 
 def exercise1(string):
     """
@@ -105,63 +90,3 @@ def exercise6(string):
     """
     return re.sub(r"(a|e|i|o|u)\w+(a|e|i|o|u)", censor_func, string)
 
-
-def get_days(y, m):
-    try:
-        if int(y) % 4 == 0:
-            days_per_m[1] = r"(0[1-9]|1\d|2[0-9])"
-        return days_per_m[int(m) - 1]
-    except Exception as e:
-        raise SystemError(e)
-
-
-def get_control_digit(d):
-    sum = 0
-    for i, j in zip("279146358279", d):
-        sum += int(i) * int(j)
-    sum %= 11
-    if sum == 10:
-        sum = 1
-    return str(sum)
-
-
-def exercise7(input_text):
-    """
-    7.Verify using a regular expression whether a string is a valid CNP.
-    """
-    matches_list = list()
-    matches_list.append(r"[1-8]") # first digit
-    matches_list.append(r"\d{2}") # year
-    matches_list.append(r"(0[1-9]|1[0-2])") # month
-    matches_list.append(get_days(input_text[1:3], input_text[3:5])) #day
-    matches_list.append(r"(0[1-9]|[1-3]\d|4[0-6]|5[1-2])") # country
-    matches_list.append(r"(00[1-9]|0[1-9]\d|\d\d\d)") # random digits
-    matches_list.append(get_control_digit(input_text[:-1])) # control digit
-
-    reg_str = r"^"
-    for elm in matches_list:
-        reg_str += elm
-    reg_str += r"$"
-    print(reg_str)
-    return bool(re.match(reg_str, input_text))
-
-
-def exercise8(path, reg):
-    """8.Write a function that recursively scrolls a directory and displays those
-    files whose name matches a regular expression
-    given as a parameter or contains a string that matches the same expression.
-    Files that satisfy both conditions will be prefixed with ">>"""
-    list_of_matches = list()
-    try:
-        for r, d, f in os.walk(path):
-            for x in f:
-                f_path = os.path.join(r, x)
-                cond1 = re.match(reg, f_path)
-                cond2 = re.match(reg, open(f_path, "r").read())
-                if cond1 and cond2:
-                    list_of_matches.append(">>" + f_path)
-                elif cond1 or cond2:
-                    list_of_matches.append(f_path)
-    except Exception as e:
-        SystemError(e)
-    return list_of_matches
