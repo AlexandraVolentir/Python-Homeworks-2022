@@ -7,6 +7,8 @@ Volentir Alexandra, 3A5
 import re
 import os
 
+from typing import List, Dict, Tuple
+
 
 def exercise1(string):
     """
@@ -44,36 +46,71 @@ def exercise3(string, regexes):
     return list_of_matches
 
 
-def exercise4(path, attr):
+def __contains_one_attr(xml_line: str, attr: Tuple[str, str]) -> bool:
+    return re.search(rf'{attr[0]}\s*=\s*"{attr[1]}"(\s|>)', xml_line) is not None
+
+
+def exercise4(path: str, attributes):
     """
     Write a function that receives as a parameter the path to an xml document and an attrs dictionary and returns
     those elements that have as attributes all the keys in the dictionary and values the corresponding values.
     For example, if attrs={"class": "url", "name": "url-form", "data-id": "item"} the items selected will be those tags
     whose attributes are class="url" si name="url-form" si data-id="item".
     """
-    res_list = list()
-    f = open(path, "r")
-    parsed_data = f.read()
-    lookup = r"(<(\w+)" + r"".join([" {key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
-                                   ) + r">[^</\2>]*</\2>)"
-    for match in re.findall(lookup, parsed_data):
-        res_list += match[0]
-    return res_list
+
+    with open(path, "r") as xml_document:
+        tags = set()
+        xml_doc_lines = xml_document.readlines()
+        for line in xml_doc_lines:
+            xml_elem_list = re.findall(r'<\w.*?>', line)
+
+            for xml_elem in xml_elem_list:
+                tag = None
+                found = re.search(r'<(.*?) |<(.*?)>', xml_elem)
+                if found:
+                    tag = found.group(found.lastindex)
+
+                attr_list = re.findall(r'\s.*?\s*=\s*".*?"|\s.*?\s*=\s*\'.*?\'', xml_elem)
+                current_attrs = {}
+                for attr in attr_list:
+                    attr_split = attr.split('=')
+                    name = attr_split[0].strip()
+                    value = attr_split[1].strip().strip('\"\'')
+
+                    if name in attributes:
+                        current_attrs[name] = value
+                if current_attrs == attributes:
+                    tags.add(tag)
+        return tags
 
 
-def exercise5(path, attr):
+def exercise5(path, attributes):
     """
     Write another variant of the function from the previous exercise that returns those elements that have
     at least one attribute that corresponds to a key-value pair in the dictionary.
     """
-    res = list()
-    f = open(path, "r")
-    data = f.read()
-    lookup = r"(<(\w+) [^>]*(" + r"|".join(["{key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
-                                           ) + r")[^>]*>[^(<\2>)]*</\2>)"
-    for match in re.findall(lookup, data):
-        res += match[0]
-    return res
+    with open(path, "r") as xml_document:
+        tags = set()
+        xml_doc_lines = xml_document.readlines()
+        for line in xml_doc_lines:
+            xml_elem_list = re.findall(r'<\w.*?>', line)
+
+            for xml_elem in xml_elem_list:
+                tag = None
+                found = re.search(r'<(.*?) |<(.*?)>', xml_elem)
+                if found:
+                    tag = found.group(found.lastindex)
+
+                attr_list = re.findall(r'\s.*?\s*=\s*".*?"|\s.*?\s*=\s*\'.*?\'', xml_elem)
+
+                for attr in attr_list:
+                    attr_split = attr.split('=')
+                    name = attr_split[0].strip()
+                    value = attr_split[1].strip().strip('\"\'')
+
+                    if name in attributes and attributes[name] == value:
+                        tags.add(tag)
+        return tags
 
 
 def exercise6(string):
