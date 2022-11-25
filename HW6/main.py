@@ -9,4 +9,5 @@ if __name__ == "__main__":
     print(exercise4("file.xml", {"class": "url", "name": "url-form", "data-id": "item"}))
     print(exercise5("file.xml", {"class": "url", "name": "url-form", "data-id": "item"}))
     print(exercise6("ala cere ora"))
-    print(exercise8(".", ".*file.*"))
+    print(exercise7(""))
+    exercise8(".", "main.*")

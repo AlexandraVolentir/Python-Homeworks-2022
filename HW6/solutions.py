@@ -55,7 +55,7 @@ def exercise4(path, attr):
     f = open(path, "r")
     parsed_data = f.read()
     lookup = r"(<(\w+)" + r"".join([" {key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
-         ) + r">[^</\2>]*</\2>)"
+                                   ) + r">[^</\2>]*</\2>)"
     for match in re.findall(lookup, parsed_data):
         res_list += match[0]
     return res_list
@@ -70,21 +70,9 @@ def exercise5(path, attr):
     f = open(path, "r")
     data = f.read()
     lookup = r"(<(\w+) [^>]*(" + r"|".join(["{key}=\"{value}\"".format(key=k, value=v) for k, v in attr.items()]
-        ) + r")[^>]*>[^(<\2>)]*</\2>)"
+                                           ) + r")[^>]*>[^(<\2>)]*</\2>)"
     for match in re.findall(lookup, data):
         res += match[0]
-    return res
-
-
-def censor(content):
-    content = content.group(0)
-    text_len = len(content)
-    res = ""
-    for j in range(text_len):
-        if j % 2 == 0:
-            res += content[j]
-        else:
-            res += "#"
     return res
 
 
@@ -93,25 +81,58 @@ def exercise6(string):
     Write a function that, for a text given as a parameter, censures words that begin and end with vowels.
     censor_funcship means replacing characters from odd positions with *.
     """
-    return re.sub(r"(a|e|i|o|u)\w+(a|e|i|o|u)", censor, string)
+    words = string.split()
+    new_words = []
+    vocals = "aeiouAEIOU"
+    for word in words:
+        if re.match(f"^[{vocals}]\w*[{vocals}]$", word):
+            sliced_word = list(word)
+            for index in range(0, len(word)):
+                if index % 2 == 1:
+                    sliced_word[index] = "*"
+            word = "".join(sliced_word)
+        new_words.append(word)
+    new_text = " ".join(new_words)
+
+    return new_text
 
 
-def exercise8(path, reg):
+def exercise7(cnp: str) -> bool:
+    if not (
+            re.search(
+                r"^[0-8]\d\d((0[1-9])|(1[0-2]))((0[1-9])|([12]\d)|(3[01]))\d{6}$", cnp
+            )
+    ):
+        return False
+    magic_sum = sum(
+        list(
+            int(zipped[0]) * int(zipped[1]) for zipped in zip("279146358279", cnp[:-1])
+        )
+    )
+    return int(cnp[-1]) == (magic_sum % 11 if magic_sum % 11 != 10 else 1)
+
+
+def exercise8(folder_path: str, regx: str):
     """8.Write a function that recursively scrolls a directory and displays those
     files whose name matches a regular expression
     given as a parameter or contains a string that matches the same expression.
     Files that satisfy both conditions will be prefixed with ">>"""
-    list_of_matches = list()
+    dir_list = os.listdir(folder_path)
     try:
-        for r, d, f in os.walk(path):
-            for x in f:
-                f_path = os.path.join(r, x)
-                if re.match(reg, f_path) and re.match(reg, open(f_path, "r").read()):
-                    to_append = ">>" + f_path
-                    list_of_matches.append(to_append)
-                elif re.match(reg, f_path) or re.match(reg, open(f_path, "r").read()):
-                    to_append = ">>" + f_path
-                    list_of_matches.append(to_append)
-    except Exception as ex:
-        SystemError(ex)
-    return list_of_matches
+        for path in dir_list:
+            if os.path.isfile(path):
+                found = False
+                if re.match("^" + regx + "$", path.split("/")[-1]):
+                    found = True
+                with open(path, "r+") as file:
+                    lines = file.read()
+                    if re.findall(regx, lines):
+                        if found:
+                            print(f">>{path}")
+                            continue
+                        else:
+                            print(f"{path}")
+                            continue
+                    print(path)
+    except Exception as e:
+        SystemError(e)
